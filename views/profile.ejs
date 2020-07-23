@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title><%= title %></title>
+<!-- Adding bootstrap css -->
+<link rel="stylesheet" href="/bootstrap.min.css">
+
+<!-- Importing Font Awesome -->
+<!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" crossorigin="anonymous"/> -->
+
+<!-- Adding home.css -->
+<link rel="stylesheet" href="/home.css">
+<!-- Adding jquery -->
+<script type="text/javascript" src="/jquery.min.js"></script>
+
+<!-- Adding Popper.js -->
+<script type = "text/javascript" src="/popper.min.js"></script>
+
+<!-- Adding bootstrap.min.js -->
+<script type = "text/javascript" src="bootstrap.min.js" ></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="#" class="navbar-brand"><b>Home</b></a>       
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collection of nav links, forms, and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+            
+            <div class="navbar-nav ml-auto action-buttons">
+                <!-- <div class="nav-item dropdown">
+                    <a href="#" data-toggle="modal" class="nav-link mr-4" data-target="#elegantModalLogin" >Login</a>
+                </div> -->
+                <div class="nav-item dropdown">
+                    <a href="/sign-out"class="btn btn-danger logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <p><%= user.email %></p>
+    
+</body>
+</html>
