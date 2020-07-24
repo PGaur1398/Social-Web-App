@@ -1,28 +1,35 @@
 //Requring Database
-const User = require("../models/User");
-
+const User = require('../models/User');
+const Post = require('../models/post')
 // controller to render home page
 module.exports.home = function(req, res){
      if(req.isAuthenticated()){
          return res.redirect('/profile');
      }
         return res.render('home',{
-         title: "Auth",
+         title: "Home",
         });
 
 }
 module.exports.profile  =  function(req,res){
-    return res.render('profile',{
-        title : "Auth | Profile"
+    // return res.render('profile',{
+    //     title : "collapse-1"
+    // });
+    Post.find({}).populate('user').exec(function(err,posts){
+       return res.render('profile',{
+           title : "Home | Profile",
+           posts : posts
+       });
     });
 }
+
 module.exports.signUp = function(req,res){
     if(req.body.password != req.body.confirm_password){
         return res.redirect('back');
     }
     User.findOne({email : req.body.email},function(err,user){
 
-        if(err){ console.log('error occured!');return;}
+        if(err){ alert('error occured!');return;}
         if(!user){
             User.create(req.body,function(err,user){
                 if(err){ console.log('error occured!');return;}

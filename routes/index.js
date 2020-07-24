@@ -6,6 +6,7 @@ const homeController = require('../controller/homeController');
 router.get('/', homeController.home);
 router.get('/profile',passport.checkAuthentication,homeController.profile);
 router.post('/sign-Up',homeController.signUp);
+router.use('/posts',require('./posts'));
 //Use passport as middleware
 router.post('/sign-in',passport.authenticate(
     'local',
