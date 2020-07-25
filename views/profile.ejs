@@ -31,9 +31,6 @@
         <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
             
             <div class="navbar-nav ml-auto action-buttons">
-                <!-- <div class="nav-item dropdown">
-                    <a href="#" data-toggle="modal" class="nav-link mr-4" data-target="#elegantModalLogin" >Login</a>
-                </div> -->
                 <div class="nav-item dropdown">
                     <a href="/sign-out"class="btn btn-danger logout-btn">Logout</a>
                 </div>
@@ -49,7 +46,8 @@
         <form action="/posts/create" method = "POST">
           <textarea class="form-control" name = "content" id="exampleFormControlTextarea1" rows="3" col ="20"></textarea>
           <p class="card-text"></p>
-          <button type = "submit" class="btn btn-primary">Post</a>
+          <button type = "submit" class="btn btn-primary">Post</button>
+          </form>
         </div>
     </div>
     <div class="card card-2">
@@ -82,8 +80,23 @@
 <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#<%= i._id %>"><i class="fa fa-comments"></i><span class="ml-1">Comments</span></div>
 </div>
 <div id="<%= i._id %>" class="bg-light p-2 collapse" data-parent="#myGroup">
-<div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
-<div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button></div>
+<form action="/comments/create" method = "POST">
+<div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="40"><textarea name = "content" class="form-control ml-1 shadow-none textarea"></textarea></div>
+<input type = "hidden" name = "post" value = "<%= i._id %>" > 
+<div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button></div>
+</form>
+<% for(let j of i.comments) { %>
+<div class="bg-white p-2 fs-12">
+        <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="40">
+        <div class="d-flex flex-column justify-content-start ml-2">
+        <span class="d-block font-weight-bold name"><%= j.user.name %></span>
+        <span class="date text-black-50"><%= j.createdAt%></span></div>
+        </div>
+        <div class="mt-2">
+        <p class = "fs-12"><%= j.content%></p>
+        </div>
+        </div>
+        <%}%>
 </div></div></div></div></li>  <%}%> 
 </ul></div>
 </perfect-scrollbar>

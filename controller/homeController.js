@@ -1,6 +1,6 @@
 //Requring Database
 const User = require('../models/User');
-const Post = require('../models/post')
+const Post = require('../models/post');
 // controller to render home page
 module.exports.home = function(req, res){
      if(req.isAuthenticated()){
@@ -15,7 +15,16 @@ module.exports.profile  =  function(req,res){
     // return res.render('profile',{
     //     title : "collapse-1"
     // });
-    Post.find({}).populate('user').exec(function(err,posts){
+    Post.find({})
+    .populate('user')
+    .populate({
+        path : 'comments',
+    populate : {
+        path : 'user'
+    }
+
+    })
+    .exec(function(err,posts){
        return res.render('profile',{
            title : "Home | Profile",
            posts : posts
