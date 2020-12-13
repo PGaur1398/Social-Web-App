@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 //connect to the database
-mongoose.connect('mongodb://localhost/Auth', {useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/SocialEnv', {useNewUrlParser: true,useUnifiedTopology: true });
 //Accessing the database
 const db = mongoose.connection;
 

@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a href="/profile/" class="navbar-brand"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Collection of nav links, forms, and other content for toggling -->
+  <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+
+    <div class="navbar-nav ml-auto action-buttons">
+      <div class="nav-item dropdown">
+        <a href="/sign-out" class="btn btn-danger logout-btn">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="tab-list" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#about" role="tab" aria-controls="about" aria-selected="true"><span
+              class="fa fa-user"></span>&nbsp;About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#activity" role="tab" aria-controls="activity" aria-selected="false"><span
+              class="fa fa-rss">&nbsp;All Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#friends" role="tab" aria-controls="friends" aria-selected="false"><span
+              class="fa fa-users">&nbsp;Friends</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="tab-content mt-3">
+        <div class="tab-pane active" id="about" role="tabpanel">
+          <div class="row">
+            <div class="col-4">
+              <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="https://imgur.com/NkPeQtx.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <a href="#" class="btn btn-sm btn-block btn-success">
+                    <i class="ace-icon fa fa-plus-circle"></i>
+                    <span>Add as a friend</span>
+                  </a>
+                  <a href="#" class="btn btn-sm btn-block btn-primary">
+                    <span>Send a message</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <h4> <%= profile.name %> </h4>
+              <div id="containerInfo">
+                <h6>Email : </h6>
+                <p><%= profile.email %></p>
+              </div>
+              <div id="containerInfo">
+                <h6>Joined Date : </h6>
+                <p><%= profile.createdAt.toDateString()%></p>
+              </div>
+              <div id="containerInfo">
+                <h6>About Me : </h6>
+                <p id = "updated"><%= profile.about %></p>
+
+                <!-- Button trigger modal -->
+                <% if(locals.user.id == profile.id) {%>
+                <a type="button" href="#" data-toggle="modal" data-target="#exampleModal">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <%}%>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">About Me</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form id = "update-form" action="/update-aboutMe/<%= profile.id %>" method = "POST">
+                      <div class="modal-body">
+                        <textarea class="form-control" id = "text-update" style="width:100%; height: 100px;"></textarea>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="card-text"></p>
+        </div>
+        <div class="tab-pane" id="activity" role="tabpanel" aria-labelledby="history-tab">
+          <p class="card-text"></p>
+        </div>
+
+        <div class="tab-pane" id="friends" role="tabpanel" aria-labelledby="deals-tab">
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<script src="/ajax_text.js"></script>
+<script>
+  $('#tab-list a').on('click', function (e) {
+    e.preventDefault();
+    $(this).tab('show')
+  })
+</script>

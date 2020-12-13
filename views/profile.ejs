@@ -1,29 +1,7 @@
-<!doctype html>
-<html>
-<head>
-<meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<title><%= title %></title>
-<!-- Adding bootstrap css -->
-<link rel="stylesheet" href="/bootstrap.min.css">
 
-<!-- Importing Font Awesome -->
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" crossorigin="anonymous"/>
-
-<!-- Adding home.css -->
-<link rel="stylesheet" href="/home.css">
-<!-- Adding jquery -->
-<script type="text/javascript" src="/jquery.min.js"></script>
-
-<!-- Adding Popper.js -->
-<script type = "text/javascript" src="/popper.min.js"></script>
-
-<!-- Adding bootstrap.min.js -->
-<script type = "text/javascript" src="bootstrap.min.js" ></script>
-</head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="#" class="navbar-brand"><b>Home</b></a>       
+        <a href="/profile-info/<%= locals.user.id %>" class="navbar-brand"><b><%= locals.user.name %></b></a>       
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,7 +45,13 @@
 <div class="bg-white p-2">
 <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="40">
 <div class="d-flex flex-column justify-content-start ml-2">
-<span class="d-block font-weight-bold name"><%= i.user.name %></span>
+<span class="d-block font-weight-bold name"><a href="/profile-info/<%= i.user._id %>"><%= i.user.name %></a>
+<% if(locals.user.id == i.user.id) {%>
+    &nbsp;&nbsp;<a href="/posts/destroy/<%= i._id%>"><i class="on-hover fs-12 fa fa-trash btn-trash"></i></a></span>
+<%}%>
+<% if(locals.user.id != i.user.id) {%>
+</span>
+    <%}%>
 <span class="date text-black-50"><%= i.createdAt%></span></div>
 </div>
 <div class="mt-2">
@@ -76,31 +60,33 @@
 </div>
 
 <div class="d-flex flex-row fs-12">
-<div class="like p-2 cursor"><i class="fa fa-thumbs-up"></i><span class="ml-1">Like</span></div>
+<div class="like p-2 cursor"><a class = "toggle-like fa fa-thumbs-up" data-likes = "<%= i.likes.length %>" href = "/posts/likes/toggle/?id=<%= i._id %>&type=Post" ><span class="ml-1"><%= i.likes.length %> Like</span></a></div>
 <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#<%= i._id %>"><i class="fa fa-comments"></i><span class="ml-1">Comments</span></div>
 </div>
 <div id="<%= i._id %>" class="bg-light p-2 collapse" data-parent="#myGroup">
-<form action="/comments/create" method = "POST">
+<form id = "comment-form" action="/comments/create" method = "POST">
 <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="40"><textarea name = "content" class="form-control ml-1 shadow-none textarea"></textarea></div>
 <input type = "hidden" name = "post" value = "<%= i._id %>" > 
 <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button></div>
 </form>
+<div id = "comments-list-container" >
 <% for(let j of i.comments) { %>
 <div class="bg-white p-2 fs-12">
-        <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="40">
+        <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="20">
         <div class="d-flex flex-column justify-content-start ml-2">
         <span class="d-block font-weight-bold name"><%= j.user.name %></span>
         <span class="date text-black-50"><%= j.createdAt%></span></div>
         </div>
         <div class="mt-2">
-        <p class = "fs-12"><%= j.content%></p>
+        <p class = "fs-10"><%= j.content%></p>
         </div>
         </div>
         <%}%>
+    </div> 
 </div></div></div></div></li>  <%}%> 
 </ul></div>
 </perfect-scrollbar>
 </div></div></div></div>
+<script src = "/ajax_comment.js"></script>
+<script src = "ajax_likes.js"></script>
 
-</body>
-</html>

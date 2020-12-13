@@ -11,12 +11,11 @@ module.exports.home = function(req, res){
         });
 
 }
-module.exports.profile  =  function(req,res){
-    // return res.render('profile',{
-    //     title : "collapse-1"
-    // });
-    Post.find({})
+module.exports.profile  =  async function(req,res){
+    try{
+    let posts = await Post.find({})
     .populate('user')
+    .sort('-createdAt')
     .populate({
         path : 'comments',
     populate : {
@@ -24,12 +23,50 @@ module.exports.profile  =  function(req,res){
     }
 
     })
-    .exec(function(err,posts){
+    .populate('likes')
        return res.render('profile',{
            title : "Home | Profile",
            posts : posts
        });
+    }
+    catch(err){
+        console.log(err);
+    }
+
+}
+module.exports.profileInfo = async function(req,res){
+    try{
+    let user = await User.findById(req.params.id);
+    return res.render('profile-info',{
+           title : "Profille-Info",
+           profile : user
     });
+}
+catch(err){
+    console.log("Error",err);
+}
+}
+module.exports.updateAboutMe = async function(req,res){
+    try{
+       if(req.user.id == req.params.id){
+         await  User.findByIdAndUpdate(req.params.id,{about : req.body.about});
+          if(req.xhr){
+           return res.json(200,{
+            data : {
+                info : req.body.about,
+            },
+            message: "About Me Updated"
+            });
+        }
+        return res.redirect('back');
+    }
+    else{
+        return res.status('404');
+    }
+    }
+    catch(err){
+         console.log('Error: ',err);
+    }
 }
 
 module.exports.signUp = function(req,res){
@@ -53,20 +90,7 @@ module.exports.signUp = function(req,res){
     })
 }
 module.exports.signIn = function(req,res){
-//     User.findOne({email : req.body.email},function(err,user){
-//     if(err){ console.log('error occured!');return }
-//     if(user){
-//         if(user.password != req.body.password){
-//            return res.redirect('back');
-//         }
-//         res.cookie('user_id',user.id);
-//         return res.redirect('back');
-//     }
-//     else{
-//         console.log(user);
-//         res.redirect('back');
-//     }
-// })
+
 return res.redirect('/profile');
 }
 module.exports.signOut = function(req,res){

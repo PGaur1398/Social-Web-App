@@ -102,4 +102,8 @@
     height: 50px;
     border-radius: 50%;
   }
+  #containerInfo h6,
+  #containerInfo p {
+      display: inline;
+  }
 

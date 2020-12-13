@@ -1,27 +1,3 @@
-<!doctype html>
-<html>
-<head>
-<meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<title><%= title %></title>
-<!-- Adding bootstrap css -->
-<link rel="stylesheet" href="/bootstrap.min.css">
-
-<!-- Importing Font Awesome -->
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" crossorigin="anonymous"/>
-
-<!-- Adding home.css -->
-<link rel="stylesheet" href="/home.css">
-<!-- Adding jquery -->
-<script type="text/javascript" src="/jquery.min.js"></script>
-
-<!-- Adding Popper.js -->
-<script type = "text/javascript" src="/popper.min.js"></script>
-
-<!-- Adding bootstrap.min.js -->
-<script type = "text/javascript" src="bootstrap.min.js" ></script>
-</head>
-<body>
   <div class="modal fade" id="elegantModalLogin" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -74,7 +50,7 @@
           <!--Twitter-->
           <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fab fa-twitter"></i></button>
           <!--Google +-->
-          <button type="submit" class="btn btn-white btn-rounded z-depth-1a"><i class="fab fa-google-plus-g"></i></button>
+          <a  href = "/auth/google" type="button" class="btn btn-white btn-rounded z-depth-1a"><i class="fab fa-google-plus-g"></i></a>
         </div>
       </div>
       <!--Footer-->
@@ -173,5 +149,4 @@
         </div>
     </div>
 </nav>
-</body>
-</html>
+
