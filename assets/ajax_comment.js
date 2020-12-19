@@ -1,6 +1,6 @@
 {
-let createComment = function(){
-    let newComment = $('#comment-form');
+let createComment = function(ele){
+    let newComment = $(ele);
     newComment.submit(function(e){
        e.preventDefault();
        $.ajax({
@@ -30,5 +30,8 @@ let newCommentDom = function(comment){
     </div>
     </div>`);
 }
-createComment();
+$('#comment-form').each(function(){
+   let self = this;
+   createComment(self);
+});
 }

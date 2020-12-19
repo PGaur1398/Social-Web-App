@@ -11,6 +11,7 @@ router.post('/sign-Up',homeController.signUp);
 router.use('/posts',require('./posts'));
 router.use('/comments',require('./comments'));
 router.use('/api',require('./api'));
+router.use('/user',require('./users'));
 //Use passport as middleware
 router.post('/sign-in',passport.authenticate(
     'local',

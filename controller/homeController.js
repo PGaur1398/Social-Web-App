@@ -13,6 +13,7 @@ module.exports.home = function(req, res){
 }
 module.exports.profile  =  async function(req,res){
     try{
+    let users = await User.find({});
     let posts = await Post.find({})
     .populate('user')
     .sort('-createdAt')
@@ -24,8 +25,10 @@ module.exports.profile  =  async function(req,res){
 
     })
     .populate('likes')
+
        return res.render('profile',{
            title : "Home | Profile",
+           users : users,
            posts : posts
        });
     }

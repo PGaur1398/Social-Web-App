@@ -10,10 +10,10 @@ const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const Mongostore = require('connect-mongo')(session);
 const expressLayouts = require('express-ejs-layouts');
 
-// const chatserver = require('http').Server(app);
-// const chatSocket = require('./config/chat_socket').chatSocket(chatserver);
-// chatServer.listen(5000);
-// console.log('chat serveris listening on ort 5000');
+const chatServer = require('http').Server(app);
+const chatSocket = require('./config/chat_socket').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat serveris listening on port 5000');
 
 app.use(expressLayouts);
 //Reading Post requests

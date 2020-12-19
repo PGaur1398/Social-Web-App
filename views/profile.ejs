@@ -10,8 +10,17 @@
             
             <div class="navbar-nav ml-auto action-buttons">
                 <div class="nav-item dropdown">
-                    <a href="/sign-out"class="btn btn-danger logout-btn">Logout</a>
+                    <a href="/sign-out"class="btn btn-danger logout-btn" style='margin-right:16px;margin-bottom: 10px;'>Logout</a>
                 </div>
+                    <div class="dropdown">
+                        <button class=" btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <% for(let i of locals.user.requests) {%>
+                          <li class="dropdown-item"><%= i %></li>
+                           <% } %>
+                        </ul>
+                      </div>
+                
             </div>
         </div>
     </nav>
@@ -52,6 +61,7 @@
 <% if(locals.user.id != i.user.id) {%>
 </span>
     <%}%>
+    
 <span class="date text-black-50"><%= i.createdAt%></span></div>
 </div>
 <div class="mt-2">
@@ -86,7 +96,40 @@
 </div></div></div></div></li>  <%}%> 
 </ul></div>
 </perfect-scrollbar>
-</div></div></div></div>
+</div></div></div>
+</div>
+<div class = "container">
+<div class ="card" > 
+        <div class="card-header">
+               <h5>All Users:</h5> 
+            </div>
+        <perfect-scrollbar class="ps-show-limits">
+                <div class="ps-content">
+                <ul class=" list-group list-group-flush">
+                    <% for(let i of users) { %>
+                        <li class="list-group-item">
+                        <div class="d-flex row">
+                        <div class="col-md-8">
+                        <div class="d-flex flex-column comment-section">
+                        <div class="bg-white p-2">
+                        <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://imgur.com/NkPeQtx.jpg" width="40">
+                        <div class="d-flex flex-column justify-content-start ml-2">
+                        <span class="d-block font-weight-bold name"><a href="/profile-info/<%= i._id %>"><%= i.name %></a>
+                            <% if(locals.user.id != i._id) {%>
+                                &nbsp;&nbsp;<a href = "/user/friend-request/<%= i._id %>"type = "button" email = "<%= i.name %>"class = "friend-request btn btn-success"><i class="on-hover fa fa-paper-plane"></i>&nbsp;Add Friend</a></span>
+                            <%}%>
+                            <% if(locals.user.id == i._id) {%>
+                            </span>
+                            <%}%>
+                        </div></div></div></div></li>  <%}%> 
+                    </ul>
+</div>
+</div>
+</div>
 <script src = "/ajax_comment.js"></script>
 <script src = "ajax_likes.js"></script>
-
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+<script src = "Socket/client_socket.js"></script>
+<script>
+ new chatEngine('<%= locals.user.name %>')
+</script>

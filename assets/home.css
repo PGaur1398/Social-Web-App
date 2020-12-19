@@ -61,6 +61,9 @@
     border-width: 0;
     transition: all .2s
 }
+.same-line {
+    display: inline-block;
+}
 .scroll-area-sm {
     height: 288px;
    
@@ -106,4 +109,5 @@
   #containerInfo p {
       display: inline;
   }
+
 
